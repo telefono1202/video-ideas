@@ -1,975 +1,463 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>影音點子提案｜Video Ideas</title>
-  <style>
-    :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --accent: #2563eb;
-      --accent-light: #eff6ff;
-      --border: #e2e8f0;
-      --radius: 12px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 0 16px 60px;
-    }
-
-    .header {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 40px 0 24px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 32px;
-    }
-
-    .header h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-
-    .header p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 16px;
-      font-size: 0.875rem;
-      color: var(--muted);
-    }
-
-    .toc {
-      max-width: 960px;
-      margin: 0 auto 36px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-    }
-
-    .toc h2 {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-
-    .toc-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .toc-list a {
-      display: inline-block;
-      padding: 6px 14px;
-      background: var(--accent-light);
-      color: var(--accent);
-      text-decoration: none;
-      border-radius: 999px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: background 0.15s;
-    }
-
-    .toc-list a:hover {
-      background: #dbeafe;
-    }
-
-    .card {
-      max-width: 960px;
-      margin: 0 auto 32px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-
-    .card-header {
-      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-      color: white;
-      padding: 18px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .card-header h2 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      line-height: 1.35;
-    }
-
-    .badge {
-      background: rgba(255,255,255,0.2);
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .card-main {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 0;
-    }
-
-    .card-image {
-      background: #e2e8f0;
-      min-height: 220px;
-      overflow: hidden;
-    }
-
-    .card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .card-body {
-      padding: 22px 24px;
-    }
-
-    .section {
-      margin-bottom: 18px;
-    }
-
-    .section:last-child {
-      margin-bottom: 0;
-    }
-
-    .section-title {
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .section-content {
-      font-size: 0.92rem;
-    }
-
-    .concept {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--text);
-      background: var(--accent-light);
-      padding: 10px 14px;
-      border-radius: 8px;
-      border-left: 4px solid var(--accent);
-    }
-
-    .hook {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #1e40af;
-      background: #f0f9ff;
-      padding: 10px 14px;
-      border-radius: 8px;
-      border-left: 4px solid #0ea5e9;
-    }
-
-    .script-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
-
-    .script-table th {
-      text-align: left;
-      padding: 8px 10px;
-      background: #f1f5f9;
-      font-weight: 600;
-      font-size: 0.78rem;
-      color: var(--muted);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .script-table td {
-      padding: 10px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-
-    .script-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .time {
-      font-weight: 600;
-      color: var(--accent);
-      white-space: nowrap;
-      width: 60px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .tag {
-      background: #f1f5f9;
-      color: var(--text);
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 0.82rem;
-    }
-
-    .notes {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 0.88rem;
-      color: #92400e;
-    }
-
-    .footer {
-      max-width: 960px;
-      margin: 40px auto 0;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    @media (max-width: 720px) {
-      .card-main {
-        grid-template-columns: 1fr;
-      }
-      .card-image {
-        max-height: 200px;
-      }
-      .header h1 { font-size: 1.4rem; }
-      .card-header { padding: 16px; }
-      .card-body { padding: 16px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邱正宏美學診所｜「假體取出 × 自體脂肪豐胸」轉化策略點子展示</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fbf7f5',
+                            100: '#f7eeeb',
+                            200: '#efdad4',
+                            500: '#c88a75',
+                            600: '#b46d56',
+                            700: '#96533f',
+                            800: '#7a4435',
+                            900: '#64392e',
+                        },
+                        dark: '#1e1b18'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8f6f4;
+            color: #2c2825;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased pb-20">
 
-  <header class="header">
-    <h1>影音點子提案</h1>
-    <p>醫美 × 身體意象｜Video Ideas + 簡單腳本 + 例圖</p>
-    <div class="meta">
-      <span>📅 更新日期：2025-10-16</span>
-      <span>📦 共 9 個點子</span>
-    </div>
-  </header>
-
-  <nav class="toc">
-    <h2>快速導覽</h2>
-    <div class="toc-list">
-      <a href="#idea-01">01. AI 修圖 × 局部抽脂</a>
-      <a href="#idea-02">02. 東奔西跑</a>
-      <a href="#idea-03">03. 仿 Netflix 影集感</a>
-      <a href="#idea-04">04. 明明只是滑個手機</a>
-      <a href="#idea-05">05. 醫美影片看越多越不會選</a>
-      <a href="#idea-06">06. 反直覺</a>
-      <a href="#idea-07">07. AI 一鍵完美身材</a>
-      <a href="#idea-08">08. 鏡子前的懊悔</a>
-      <a href="#idea-09">09. 捏臉捏身材</a>
-    </div>
-  </nav>
-
-  <!-- 01 -->
-  <article class="card" id="idea-01">
-    <div class="card-header">
-      <h2>01. AI 修圖 × 身體意象 × 局部抽脂</h2>
-      <span class="badge">短影音</span>
-    </div>
-    <div class="card-main">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=500&fit=crop&q=80" alt="AI 修圖例圖：女生看手機">
-      </div>
-      <div class="card-body">
-        <div class="section">
-          <div class="section-title">💡 一句話概念</div>
-          <div class="section-content concept">
-            用 AI 修圖的「局部微調」對比真實身體，帶出「局部抽脂不是追求完美，而是讓自己更舒服」的觀點。
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎣 開場 Hook</div>
-          <div class="section-content hook">
-            「AI 幫你修掉一點點，就已經覺得自己很棒了……那現實中呢？」
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎯 適合用途</div>
-          <div class="section-content">
-            <div class="tags">
-              <span class="tag">局部抽脂教育</span>
-              <span class="tag">身體意象議題</span>
-              <span class="tag">品牌形象</span>
+    <!-- Header / Hero Section -->
+    <header class="relative bg-gradient-to-r from-stone-900 via-brand-900 to-stone-900 text-white py-16 px-4 sm:px-6 lg:px-8 shadow-xl">
+        <div class="max-w-6xl mx-auto">
+            <div class="inline-flex items-center space-x-2 bg-brand-500/30 border border-brand-500/50 rounded-full px-3 py-1 text-xs font-medium text-brand-200 mb-4">
+                <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                <span>Proposal Canvas & Strategy Showcase</span>
             </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📝 畫面結構 / 簡單腳本</div>
-          <div class="section-content">
-            <table class="script-table">
-              <thead>
-                <tr>
-                  <th>段落</th>
-                  <th>畫面 / 動作</th>
-                  <th>旁白 / 重點</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="time">開場</td>
-                  <td>手機螢幕上 AI 修圖介面，輕輕拉一下腰線、大腿內側 → 畫面立刻變得舒服</td>
-                  <td>AI 微調帶來的瞬間滿足感</td>
-                </tr>
-                <tr>
-                  <td class="time">轉場</td>
-                  <td>電扇突然吹起衣服（輕微晃動、布料貼身），暗示「局部多餘的部分」被帶走</td>
-                  <td>用電扇把「抽走多餘」具象化</td>
-                </tr>
-                <tr>
-                  <td class="time">接真人</td>
-                  <td>醫師或個案說</td>
-                  <td>「其實不用整個大改造，局部拿掉一點點就夠了」</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📌 腳本重點說明</div>
-          <div class="section-content notes">
-            用「電扇」當視覺隱喻，把「抽走多餘」具象化，避免直接講手術過程，讓觀眾先被畫面吸住再聽觀點。
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
-
-  <!-- 02 -->
-  <article class="card" id="idea-02">
-    <div class="card-header">
-      <h2>02. 你還在為了 00 東奔西跑嗎</h2>
-      <span class="badge">短影音</span>
-    </div>
-    <div class="card-main">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=500&fit=crop&q=80" alt="東奔西跑例圖：運動與數字焦慮">
-      </div>
-      <div class="card-body">
-        <div class="section">
-          <div class="section-title">💡 一句話概念</div>
-          <div class="section-content concept">
-            呼應 IG 貼文語氣，把「為了身材數字奔波」轉成「其實可以更精準、更有效率」的醫美觀點。
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎣 開場 Hook</div>
-          <div class="section-content hook">
-            「你還在為了那幾個數字，東奔西跑、試了又試嗎？」
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎯 適合用途</div>
-          <div class="section-content">
-            <div class="tags">
-              <span class="tag">抽脂</span>
-              <span class="tag">身材雕塑</span>
-              <span class="tag">諮詢轉換影片</span>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3">
+                邱正宏美學診所
+            </h1>
+            <p class="text-xl sm:text-2xl font-light text-brand-200 mb-6">
+                「假體取出 × 自體脂肪豐胸」轉化策略點子展示
+            </p>
+            
+            <!-- Hero Core Position Box -->
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 max-w-3xl">
+                <div class="text-xs uppercase tracking-wider text-brand-200 font-bold mb-1">
+                    <i class="fa-solid fa-compass mr-1"></i> 核心定位提案 (Core Positioning)
+                </div>
+                <blockquote class="text-lg sm:text-xl font-bold text-white mb-2">
+                    「不想再放假體，也不代表要放棄喜歡的胸型。」
+                </blockquote>
+                <p class="text-sm text-stone-200 leading-relaxed">
+                    本次廣告不主推「純假體取出」，而是透過受眾對「取出後變小/鬆弛」的焦慮，<strong class="text-brand-200 underline decoration-brand-500">將『假體取出』自然銜接至『自體脂肪豐胸』</strong>，吸引精準有補脂需求的高價值諮詢客群。
+                </p>
             </div>
-          </div>
         </div>
-        <div class="section">
-          <div class="section-title">📝 畫面結構 / 簡單腳本</div>
-          <div class="section-content">
-            <table class="script-table">
-              <thead>
-                <tr>
-                  <th>段落</th>
-                  <th>畫面 / 動作</th>
-                  <th>旁白 / 重點</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="time">前段</td>
-                  <td>快速切換：跑步、量體重、照鏡子、翻資料的疲憊畫面</td>
-                  <td>製造「東奔西跑」的共鳴感</td>
-                </tr>
-                <tr>
-                  <td class="time">轉折</td>
-                  <td>突然定格 → 文字跳出「其實不用這樣」</td>
-                  <td>打斷既有節奏</td>
-                </tr>
-                <tr>
-                  <td class="time">後段</td>
-                  <td>接醫師或個案</td>
-                  <td>說明精準評估後，一次把重點問題解決</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📌 腳本重點說明</div>
-          <div class="section-content notes">
-            保留原貼文的「東奔西跑」語感，讓觀眾瞬間產生共鳴，再導向「精準評估」的解決方向。
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
+    </header>
 
-  <!-- 03 -->
-  <article class="card" id="idea-03">
-    <div class="card-header">
-      <h2>03. 仿 Netflix 影集感</h2>
-      <span class="badge">品牌形象</span>
-    </div>
-    <div class="card-main">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&h=500&fit=crop&q=80" alt="Netflix 影集感例圖：電影院氛圍">
-      </div>
-      <div class="card-body">
-        <div class="section">
-          <div class="section-title">💡 一句話概念</div>
-          <div class="section-content concept">
-            用 Netflix 影集的開場風格（標題卡、低飽和色調、慢節奏字幕），把醫美選擇做成「一集故事」。
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎣 開場 Hook</div>
-          <div class="section-content hook">
-            黑底白字慢慢浮現：「這一集：關於身體的選擇。」
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎯 適合用途</div>
-          <div class="section-content">
-            <div class="tags">
-              <span class="tag">品牌形象</span>
-              <span class="tag">系列內容</span>
-              <span class="tag">高端診所調性</span>
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 space-y-12">
+
+        <!-- SECTION 1: TARGET AUDIENCE -->
+        <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-sm">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">一、 核心受眾重新定義</h2>
+                    <p class="text-xs text-stone-500">Target Audience Definition</p>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📝 畫面結構 / 簡單腳本</div>
-          <div class="section-content">
-            <table class="script-table">
-              <thead>
-                <tr>
-                  <th>段落</th>
-                  <th>畫面 / 動作</th>
-                  <th>旁白 / 重點</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="time">開場</td>
-                  <td>影集式標題卡 → 緩慢推進的空鏡（鏡子、手機螢幕、診所燈光）</td>
-                  <td>「這一集：關於身體的選擇。」</td>
-                </tr>
-                <tr>
-                  <td class="time">中段</td>
-                  <td>旁白或字幕用敘事語氣帶出個案內心 → 轉真人訪談</td>
-                  <td>用故事感帶出選擇過程</td>
-                </tr>
-                <tr>
-                  <td class="time">結尾</td>
-                  <td>再回到影集式結尾字幕</td>
-                  <td>維持整體氛圍一致性</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📌 腳本重點說明</div>
-          <div class="section-content notes">
-            重點在「節奏」與「氛圍」，讓觀眾覺得在看一集短影集，而不是硬廣。
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
 
-  <!-- 04 -->
-  <article class="card" id="idea-04">
-    <div class="card-header">
-      <h2>04. 明明只是滑個手機</h2>
-      <span class="badge">短影音</span>
-    </div>
-    <div class="card-main">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=500&fit=crop&q=80" alt="滑手機焦慮例圖">
-      </div>
-      <div class="card-body">
-        <div class="section">
-          <div class="section-title">💡 一句話概念</div>
-          <div class="section-content concept">
-            直擊「滑手機 → 身體焦慮」的瞬間，讓觀眾覺得被說中。
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎣 開場 Hook</div>
-          <div class="section-content hook">
-            「明明只是滑個手機，怎麼突然覺得自己哪裡都不對？」
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎯 適合用途</div>
-          <div class="section-content">
-            <div class="tags">
-              <span class="tag">身體意象教育</span>
-              <span class="tag">諮詢前心理建設</span>
+            <p class="text-sm text-stone-600 mb-6 leading-relaxed">
+                排除「純醫療修復（破裂/嚴重攣縮）」無補脂意願的族群，精準鎖定 <span class="font-bold text-brand-700">「想擺脫假體，但希望維持自然豐滿度」</span> 的女性：
+            </p>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[600px]">
+                    <thead>
+                        <tr class="border-b border-stone-200 bg-stone-50 text-stone-600 text-xs font-bold uppercase">
+                            <th class="py-3 px-4 rounded-l-lg">受眾標籤</th>
+                            <th class="py-3 px-4">目前狀態與痛點</th>
+                            <th class="py-3 px-4">真正心理需求</th>
+                            <th class="py-3 px-4">廣告溝通切入點</th>
+                            <th class="py-3 px-4 text-center rounded-r-lg">優先度</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-100 text-sm">
+                        <tr class="hover:bg-brand-50/50 transition-colors">
+                            <td class="py-4 px-4 font-bold text-stone-800">
+                                <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 mr-2"></span>A. 胸型焦慮族
+                            </td>
+                            <td class="py-4 px-4 text-stone-600">已有取出意願，但極度害怕術後胸部塌陷、變小</td>
+                            <td class="py-4 px-4 text-stone-600">不想要假體，但仍想保有原本的豐滿與挺拔</td>
+                            <td class="py-4 px-4 font-medium text-brand-800">取出後胸型維持、自體脂肪替代選擇</td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800">
+                                    ★★★ 極高
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-brand-50/50 transition-colors">
+                            <td class="py-4 px-4 font-bold text-stone-800">
+                                <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 mr-2"></span>B. 觸感落差族
+                            </td>
+                            <td class="py-4 px-4 text-stone-600">外觀滿意，但討厭異物感、僵硬感或邊緣感</td>
+                            <td class="py-4 px-4 text-stone-600">希望胸部觸感與動態更自然、真實</td>
+                            <td class="py-4 px-4 font-medium text-brand-800">假體與自體脂肪的觸感/自然度差異</td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800">
+                                    ★★★ 極高
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-brand-50/50 transition-colors">
+                            <td class="py-4 px-4 font-bold text-stone-800">
+                                <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500 mr-2"></span>C. 審美轉變族
+                            </td>
+                            <td class="py-4 px-4 text-stone-600">隆乳多年，過去偏好誇張豐滿，現在轉向自然低調</td>
+                            <td class="py-4 px-4 text-stone-600">隨生活階段改變，希望重新調整胸型</td>
+                            <td class="py-4 px-4 font-medium text-brand-800">隆乳多年後的審美回歸與胸型重塑</td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                                    ★★ 中高
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-brand-50/50 transition-colors">
+                            <td class="py-4 px-4 font-bold text-stone-800">
+                                <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500 mr-2"></span>D. 潛在觀望族
+                            </td>
+                            <td class="py-4 px-4 text-stone-600">尚未隆乳，擔心假體後遺症與異物感</td>
+                            <td class="py-4 px-4 text-stone-600">想豐胸，但從一開始就排斥放入假體</td>
+                            <td class="py-4 px-4 font-medium text-brand-800">直接選擇自體脂肪豐胸的優勢</td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                                    ★★ 中高
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📝 畫面結構 / 簡單腳本</div>
-          <div class="section-content">
-            <table class="script-table">
-              <thead>
-                <tr>
-                  <th>段落</th>
-                  <th>畫面 / 動作</th>
-                  <th>旁白 / 重點</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="time">開場</td>
-                  <td>POV：手指快速滑過醫美、健身、身材對比影片</td>
-                  <td>日常滑手機的熟悉感</td>
-                </tr>
-                <tr>
-                  <td class="time">加速</td>
-                  <td>畫面越來越快 → 突然停在鏡子前的自己</td>
-                  <td>焦慮感被放大後定格</td>
-                </tr>
-                <tr>
-                  <td class="time">轉折</td>
-                  <td>接醫師或旁白</td>
-                  <td>說明這種焦慮很常見，但可以先停下來問自己真正需要什麼</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📌 腳本重點說明</div>
-          <div class="section-content notes">
-            用「滑手機」這個日常動作當入口，降低防衛心，再導向「先理解再選擇」。
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
+        </section>
 
-  <!-- 05 -->
-  <article class="card" id="idea-05">
-    <div class="card-header">
-      <h2>05. 醫美影片看越多，反而越不會選</h2>
-      <span class="badge">短影音</span>
-    </div>
-    <div class="card-main">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=500&fit=crop&q=80" alt="資訊過載例圖：手機螢幕">
-      </div>
-      <div class="card-body">
-        <div class="section">
-          <div class="section-title">💡 一句話概念</div>
-          <div class="section-content concept">
-            資訊過載造成選擇困難，帶出「專業評估」的必要性。
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎣 開場 Hook</div>
-          <div class="section-content hook">
-            「醫美影片看了 20 支，結果還是不知道自己適合做什麼？」
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎯 適合用途</div>
-          <div class="section-content">
-            <div class="tags">
-              <span class="tag">諮詢轉換</span>
-              <span class="tag">療程選擇教育</span>
+        <!-- SECTION 2: CONTENT PILLARS -->
+        <section class="space-y-6">
+            <div class="flex items-center space-x-3 mb-2">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">二、 四大切入方向與內容策略</h2>
+                    <p class="text-xs text-stone-500">Content Pillars & Angle Breakdown</p>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📝 畫面結構 / 簡單腳本</div>
-          <div class="section-content">
-            <table class="script-table">
-              <thead>
-                <tr>
-                  <th>段落</th>
-                  <th>畫面 / 動作</th>
-                  <th>旁白 / 重點</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="time">前段</td>
-                  <td>手機畫面快速切換不同療程介紹（抽脂、隆乳、埋線……）</td>
-                  <td>製造資訊過載的感覺</td>
-                </tr>
-                <tr>
-                  <td class="time">定格</td>
-                  <td>最後停在搜尋頁，游標一直閃爍</td>
-                  <td>選擇困難的視覺化</td>
-                </tr>
-                <tr>
-                  <td class="time">轉折</td>
-                  <td>醫師或顧問出現</td>
-                  <td>「看再多，不如先搞清楚自己的起點」</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📌 腳本重點說明</div>
-          <div class="section-content notes">
-            用「連續切換」製造資訊焦慮感，讓觀眾立刻產生「對，就是我」的共鳴。
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
 
-  <!-- 06 -->
-  <article class="card" id="idea-06">
-    <div class="card-header">
-      <h2>06. 反直覺：挑戰既有認知</h2>
-      <span class="badge">教育內容</span>
-    </div>
-    <div class="card-main">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=500&fit=crop&q=80" alt="反直覺例圖：醫師專業說明">
-      </div>
-      <div class="card-body">
-        <div class="section">
-          <div class="section-title">💡 一句話概念</div>
-          <div class="section-content concept">
-            直接講結論，顛覆常見迷思。
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎣 開場 Hook（可選兩則）</div>
-          <div class="section-content hook">
-            「自體脂肪隆乳，不是補越多越好。」<br>
-            「抽脂，不等於減重。」
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎯 適合用途</div>
-          <div class="section-content">
-            <div class="tags">
-              <span class="tag">教育內容</span>
-              <span class="tag">優先測試素材</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Pillar 1 -->
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-brand-600 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-brand-600 tracking-wider">方向 01｜核心主打</span>
+                            <span class="bg-brand-100 text-brand-800 text-xs px-2.5 py-0.5 rounded-full font-bold">胸型維護</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">不想要假體，但不想失去胸型</h3>
+                        <p class="text-xs text-stone-500 bg-stone-100 p-2.5 rounded-lg mb-4 italic">
+                            受眾矛盾：「我想把假體拿掉，但我不想回到以前的小胸部。」
+                        </p>
+                        <h4 class="text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">建議內容題材：</h4>
+                        <ul class="text-sm text-stone-600 space-y-1.5 mb-4 list-disc list-inside">
+                            <li>假體取出後，胸部一定會縮水變小嗎？</li>
+                            <li>假體取出＋自體脂肪，適合哪些人？</li>
+                            <li>不想再放假體，還能如何保有理想胸型？</li>
+                        </ul>
+                    </div>
+                    <div class="bg-brand-50 p-3 rounded-xl border border-brand-100 text-xs text-brand-900">
+                        <i class="fa-solid fa-circle-info mr-1 text-brand-600"></i>
+                        <strong>衛教重點：</strong>明確說明自體脂肪補脂極限受個人脂肪條件與乳房空間影響，設定合理期待。
+                    </div>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-rose-500 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-rose-500 tracking-wider">方向 02｜觸及擴大</span>
+                            <span class="bg-rose-100 text-rose-800 text-xs px-2.5 py-0.5 rounded-full font-bold">觸感與自然度</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">假體觸感與自然度的心理落差</h3>
+                        <p class="text-xs text-stone-500 bg-stone-100 p-2.5 rounded-lg mb-4 italic">
+                            受眾矛盾：「穿衣服很好看，但摸起來、動起來都不是我想要的。」
+                        </p>
+                        <h4 class="text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">建議內容題材：</h4>
+                        <ul class="text-sm text-stone-600 space-y-1.5 mb-4 list-disc list-inside">
+                            <li>胸部變大了，為什麼摸起來還是不滿意？</li>
+                            <li>隆乳後才發現，自己更在意真實自然感。</li>
+                            <li>不喜歡假體的異物感，還有其他豐胸選擇嗎？</li>
+                        </ul>
+                    </div>
+                    <div class="bg-rose-50 p-3 rounded-xl border border-rose-100 text-xs text-rose-900">
+                        <i class="fa-solid fa-video mr-1 text-rose-600"></i>
+                        <strong>媒體形式：</strong>適合社群短影音 (IG Reels / TikTok / Threads)，結合真實個案經驗談。
+                    </div>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-amber-500 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-amber-600 tracking-wider">方向 03｜品牌差異</span>
+                            <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-0.5 rounded-full font-bold">審美重塑</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">隆乳多年後，重新選擇自己喜歡的胸型</h3>
+                        <p class="text-xs text-stone-500 bg-stone-100 p-2.5 rounded-lg mb-4 italic">
+                            受眾矛盾：「幾年前喜歡的，現在覺得不適合我了。」
+                        </p>
+                        <h4 class="text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">建議內容題材：</h4>
+                        <ul class="text-sm text-stone-600 space-y-1.5 mb-4 list-disc list-inside">
+                            <li>隆乳 5~10 年後，為什麼有人選擇取出假體？</li>
+                            <li>產後、變瘦、年齡增長，胸型需求如何重新調整？</li>
+                            <li>假體取出後，如何改造成符合當下喜好的胸型？</li>
+                        </ul>
+                    </div>
+                    <div class="bg-amber-50 p-3 rounded-xl border border-amber-100 text-xs text-amber-900">
+                        <i class="fa-solid fa-heart mr-1 text-amber-600"></i>
+                        <strong>品牌定位：</strong>不強調「假體失敗」，而是溝通「人生不同階段的身體自主選擇」。
+                    </div>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-emerald-600 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-emerald-600 tracking-wider">方向 04｜高轉化承接</span>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-bold">專業解惑</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">假體取出後，自體脂肪到底能做到什麼？</h3>
+                        <p class="text-xs text-stone-500 bg-stone-100 p-2.5 rounded-lg mb-4 italic">
+                            受眾矛盾：「取出跟補脂可以同時做嗎？效果到底有多好？」
+                        </p>
+                        <h4 class="text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">建議內容題材：</h4>
+                        <ul class="text-sm text-stone-600 space-y-1.5 mb-4 list-disc list-inside">
+                            <li>假體取出後補脂，能補回原本的多少比例？</li>
+                            <li>假體取出＋自體脂肪，可以同一次手術完成嗎？</li>
+                            <li>取出後的胸部鬆弛，單靠自體脂肪能改善嗎？</li>
+                        </ul>
+                    </div>
+                    <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-100 text-xs text-emerald-900">
+                        <i class="fa-solid fa-user-check mr-1 text-emerald-600"></i>
+                        <strong>諮詢效益：</strong>建立專業信任感，過濾低品質諮詢，提高現場成交率。
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📝 畫面結構 / 簡單腳本</div>
-          <div class="section-content">
-            <table class="script-table">
-              <thead>
-                <tr>
-                  <th>段落</th>
-                  <th>畫面 / 動作</th>
-                  <th>旁白 / 重點</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="time">開場</td>
-                  <td>醫師一開場就直接講結論，字幕同步放大</td>
-                  <td>反直覺結論先丟出來</td>
-                </tr>
-                <tr>
-                  <td class="time">解釋</td>
-                  <td>用簡單圖示或對比畫面解釋原因</td>
-                  <td>快速建立正確觀念</td>
-                </tr>
-                <tr>
-                  <td class="time">結尾</td>
-                  <td>回到「正確觀念」總結</td>
-                  <td>強化記憶點</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📌 腳本重點說明</div>
-          <div class="section-content notes">
-            優先測試這類結構，因為「反直覺」開場容易停滑。字幕要大、要清楚。
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
+        </section>
 
-  <!-- 07 -->
-  <article class="card" id="idea-07">
-    <div class="card-header">
-      <h2>07. 視覺反差：AI 一鍵生成完美身材</h2>
-      <span class="badge">AI Opening</span>
-    </div>
-    <div class="card-main">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=500&fit=crop&q=80" alt="AI 一鍵生成例圖">
-      </div>
-      <div class="card-body">
-        <div class="section">
-          <div class="section-title">💡 一句話概念</div>
-          <div class="section-content concept">
-            用 AI 身形變化製造視覺驚喜，再拉回現實。
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎣 開場 Hook</div>
-          <div class="section-content hook">
-            「如果完美身材可以一鍵生成呢？」
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎯 適合用途</div>
-          <div class="section-content">
-            <div class="tags">
-              <span class="tag">AI Opening</span>
-              <span class="tag">品牌形象</span>
-              <span class="tag">身材審美議題</span>
+        <!-- SECTION 3: STRATEGIC MATRIX -->
+        <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-sm">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">三、 策略比較與評估</h2>
+                    <p class="text-xs text-stone-500">Strategic Evaluation Matrix</p>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📝 畫面結構 / 簡單腳本</div>
-          <div class="section-content">
-            <table class="script-table">
-              <thead>
-                <tr>
-                  <th>段落</th>
-                  <th>畫面 / 動作</th>
-                  <th>旁白 / 重點</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="time">開場</td>
-                  <td>AI 身形輪廓快速變化（腰、胸、比例不斷切換）</td>
-                  <td>視覺驚喜攔截滑動</td>
-                </tr>
-                <tr>
-                  <td class="time">定格</td>
-                  <td>畫面突然定格 → 轉場接醫師真人訪談</td>
-                  <td>從虛擬拉回現實</td>
-                </tr>
-                <tr>
-                  <td class="time">落地</td>
-                  <td>醫師說</td>
-                  <td>「現實中的身體，不是按下生成就結束。」</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📌 腳本重點說明</div>
-          <div class="section-content notes">
-            視覺先攔截滑動，文字再點題，最後用真人內容落地。
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
 
-  <!-- 08 -->
-  <article class="card" id="idea-08">
-    <div class="card-header">
-      <h2>08. 鏡子前的懊悔 × 漏看的細節</h2>
-      <span class="badge">個案故事</span>
-    </div>
-    <div class="card-main">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1594737625785-cd8506f1d4cd?w=600&h=500&fit=crop&q=80" alt="鏡子前懊悔例圖">
-      </div>
-      <div class="card-body">
-        <div class="section">
-          <div class="section-title">💡 一句話概念</div>
-          <div class="section-content concept">
-            用懊悔情緒帶出「做功課時容易漏看的事」。
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎣 開場 Hook</div>
-          <div class="section-content hook">
-            「我原本以為，瘦下來就能解決這個問題。」<br>
-            「我做功課做了很久，最後才發現自己漏看這些事。」
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎯 適合用途</div>
-          <div class="section-content">
-            <div class="tags">
-              <span class="tag">隆乳</span>
-              <span class="tag">抽脂後自信穿搭</span>
-              <span class="tag">個案故事</span>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[600px]">
+                    <thead>
+                        <tr class="border-b border-stone-200 bg-stone-50 text-stone-600 text-xs font-bold uppercase">
+                            <th class="py-3 px-4 rounded-l-lg">方向主題</th>
+                            <th class="py-3 px-4 text-center">社群吸引力</th>
+                            <th class="py-3 px-4 text-center">自體脂肪關聯</th>
+                            <th class="py-3 px-4 text-center">諮詢意圖</th>
+                            <th class="py-3 px-4 rounded-r-lg">建議角色 / 投放策略</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-100 text-sm">
+                        <tr class="hover:bg-stone-50">
+                            <td class="py-4 px-4 font-bold text-stone-800">① 不想失去胸型</td>
+                            <td class="py-4 px-4 text-center text-emerald-600 font-bold">高</td>
+                            <td class="py-4 px-4 text-center text-emerald-600 font-bold">非常高</td>
+                            <td class="py-4 px-4 text-center text-emerald-600 font-bold">高</td>
+                            <td class="py-4 px-4"><span class="bg-brand-100 text-brand-800 px-2 py-1 rounded text-xs font-bold">核心主打</span> (首波測試重點)</td>
+                        </tr>
+                        <tr class="hover:bg-stone-50">
+                            <td class="py-4 px-4 font-bold text-stone-800">② 觸感落差</td>
+                            <td class="py-4 px-4 text-center text-emerald-600 font-bold">高</td>
+                            <td class="py-4 px-4 text-center text-emerald-600 font-bold">高</td>
+                            <td class="py-4 px-4 text-center text-amber-600 font-bold">中</td>
+                            <td class="py-4 px-4"><span class="bg-stone-200 text-stone-800 px-2 py-1 rounded text-xs font-bold">擴大潛在受眾</span> (漏斗上層抓人)</td>
+                        </tr>
+                        <tr class="hover:bg-stone-50">
+                            <td class="py-4 px-4 font-bold text-stone-800">③ 審美重塑</td>
+                            <td class="py-4 px-4 text-center text-amber-600 font-bold">中高</td>
+                            <td class="py-4 px-4 text-center text-emerald-600 font-bold">高</td>
+                            <td class="py-4 px-4 text-center text-amber-600 font-bold">中</td>
+                            <td class="py-4 px-4"><span class="bg-stone-200 text-stone-800 px-2 py-1 rounded text-xs font-bold">差異化內容</span> (建立品牌質感)</td>
+                        </tr>
+                        <tr class="hover:bg-stone-50">
+                            <td class="py-4 px-4 font-bold text-stone-800">④ 自體脂肪效益</td>
+                            <td class="py-4 px-4 text-center text-amber-600 font-bold">中</td>
+                            <td class="py-4 px-4 text-center text-emerald-600 font-bold">非常高</td>
+                            <td class="py-4 px-4 text-center text-emerald-600 font-bold">高</td>
+                            <td class="py-4 px-4"><span class="bg-emerald-100 text-emerald-800 px-2 py-1 rounded text-xs font-bold">促成諮詢</span> (再行銷 / 落地頁承接)</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📝 畫面結構 / 簡單腳本</div>
-          <div class="section-content">
-            <table class="script-table">
-              <thead>
-                <tr>
-                  <th>段落</th>
-                  <th>畫面 / 動作</th>
-                  <th>旁白 / 重點</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="time">開場</td>
-                  <td>女生拿小鏡子，帶一點懊悔的情緒看自己</td>
-                  <td>情緒先行</td>
-                </tr>
-                <tr>
-                  <td class="time">對比</td>
-                  <td>切換：穿上各種顯身材的衣服（自信穿搭畫面）</td>
-                  <td>前後對比</td>
-                </tr>
-                <tr>
-                  <td class="time">落地</td>
-                  <td>接醫師或旁白</td>
-                  <td>說明隆乳 / 抽脂後，真正改變的是「選擇衣服的自由」</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📌 腳本重點說明</div>
-          <div class="section-content notes">
-            情緒先行，再給解決方案。鏡子與穿衣畫面形成前後對比。
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
+        </section>
 
-  <!-- 09 -->
-  <article class="card" id="idea-09">
-    <div class="card-header">
-      <h2>09. 捏臉捏到忘記自己長怎樣</h2>
-      <span class="badge">AI 特效</span>
-    </div>
-    <div class="card-main">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=500&fit=crop&q=80" alt="捏臉遊戲例圖">
-      </div>
-      <div class="card-body">
-        <div class="section">
-          <div class="section-title">💡 一句話概念</div>
-          <div class="section-content concept">
-            用遊戲捏臉 / AI 生成梗，對比現實身體無法一鍵重來。
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎣 開場 Hook</div>
-          <div class="section-content hook">
-            「如果人生可以重新捏臉捏身材……你會不會直接按到天亮？」
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">🎯 適合用途</div>
-          <div class="section-content">
-            <div class="tags">
-              <span class="tag">AI 特效片</span>
-              <span class="tag">身體意象</span>
-              <span class="tag">品牌形象</span>
+        <!-- SECTION 4: AD CREATIVES -->
+        <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-sm">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">四、 優先測試素材與廣告選題</h2>
+                    <p class="text-xs text-stone-500">Recommended Ad Headlines for Testing</p>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📝 畫面結構 / 簡單腳本</div>
-          <div class="section-content">
-            <table class="script-table">
-              <thead>
-                <tr>
-                  <th>段落</th>
-                  <th>畫面 / 動作</th>
-                  <th>旁白 / 重點</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="time">開場</td>
-                  <td>人物像遊戲角色編輯器，腰線、身形、比例不斷切換</td>
-                  <td>熟悉的捏臉遊戲感</td>
-                </tr>
-                <tr>
-                  <td class="time">轉折</td>
-                  <td>最後跳出「生成完成？」卻突然卡住</td>
-                  <td>虛擬與現實的落差</td>
-                </tr>
-                <tr>
-                  <td class="time">落地</td>
-                  <td>接醫師</td>
-                  <td>「但現實中的身體，不是按下重新生成就結束了。」</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-title">📌 腳本重點說明</div>
-          <div class="section-content notes">
-            視覺概念非常明確，AI / 遊戲特效容易發揮，也有濾鏡文化的熟悉感。
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
 
-  <footer class="footer">
-    共 9 個影音點子 · 每個點子皆附例圖 · 建議用 Chrome / Safari 開啟<br>
-    例圖來源：Unsplash（僅供內部討論參考）
-  </footer>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Ad 1 -->
+                <div class="p-4 bg-white rounded-xl border border-stone-200 hover:border-brand-500 transition-all shadow-sm flex items-start space-x-3">
+                    <div class="bg-brand-600 text-white text-xs font-bold rounded-lg px-2.5 py-1 mt-0.5">01</div>
+                    <div class="space-y-1">
+                        <span class="inline-block bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded">首選主力 (高轉化)</span>
+                        <h4 class="font-bold text-stone-800 text-base">「假體想拿掉，但不想胸部跟著縮水塌陷？」</h4>
+                        <p class="text-xs text-stone-500">受眾：已有取出意願者 ｜ 帶出服務：假體取出 ＋ 自體脂肪複合評估</p>
+                    </div>
+                </div>
+
+                <!-- Ad 2 -->
+                <div class="p-4 bg-white rounded-xl border border-stone-200 hover:border-brand-500 transition-all shadow-sm flex items-start space-x-3">
+                    <div class="bg-brand-600 text-white text-xs font-bold rounded-lg px-2.5 py-1 mt-0.5">02</div>
+                    <div class="space-y-1">
+                        <span class="inline-block bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded">首選主力 (高轉化)</span>
+                        <h4 class="font-bold text-stone-800 text-base">「假體取出後，可以直接同一次補自體脂肪嗎？」</h4>
+                        <p class="text-xs text-stone-500">受眾：正在研究手術細節者 ｜ 帶出服務：一次性取出＋補脂手術評估</p>
+                    </div>
+                </div>
+
+                <!-- Ad 3 -->
+                <div class="p-4 bg-white rounded-xl border border-stone-200 hover:border-brand-500 transition-all shadow-sm flex items-start space-x-3">
+                    <div class="bg-brand-600 text-white text-xs font-bold rounded-lg px-2.5 py-1 mt-0.5">03</div>
+                    <div class="space-y-1">
+                        <span class="inline-block bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded">首選主力 (高轉化)</span>
+                        <h4 class="font-bold text-stone-800 text-base">「假體取出後，補脂真的能補回原本的尺寸與胸型嗎？」</h4>
+                        <p class="text-xs text-stone-500">受眾：高意圖、臨門一腳族群 ｜ 帶出服務：自體脂肪豐胸專業諮詢</p>
+                    </div>
+                </div>
+
+                <!-- Ad 4 -->
+                <div class="p-4 bg-white rounded-xl border border-stone-200 hover:border-brand-500 transition-all shadow-sm flex items-start space-x-3">
+                    <div class="bg-stone-700 text-white text-xs font-bold rounded-lg px-2.5 py-1 mt-0.5">04</div>
+                    <div class="space-y-1">
+                        <span class="inline-block bg-stone-100 text-stone-700 text-[10px] font-bold px-2 py-0.5 rounded">第二波 (情緒共鳴)</span>
+                        <h4 class="font-bold text-stone-800 text-base">「不想再放假體，還能怎麼維持胸部豐滿度？」</h4>
+                        <p class="text-xs text-stone-500">受眾：假體不滿意觀望族 ｜ 帶出服務：自體脂肪豐胸介紹</p>
+                    </div>
+                </div>
+
+                <!-- Ad 5 -->
+                <div class="p-4 bg-white rounded-xl border border-stone-200 hover:border-brand-500 transition-all shadow-sm flex items-start space-x-3">
+                    <div class="bg-stone-700 text-white text-xs font-bold rounded-lg px-2.5 py-1 mt-0.5">05</div>
+                    <div class="space-y-1">
+                        <span class="inline-block bg-stone-100 text-stone-700 text-[10px] font-bold px-2 py-0.5 rounded">第二波 (情緒共鳴)</span>
+                        <h4 class="font-bold text-stone-800 text-base">「隆乳後才發現，自己更想要自然的觸感與線條？」</h4>
+                        <p class="text-xs text-stone-500">受眾：異物感落差族 ｜ 帶出服務：自體脂肪自然豐胸</p>
+                    </div>
+                </div>
+
+                <!-- Ad 6 -->
+                <div class="p-4 bg-white rounded-xl border border-stone-200 hover:border-brand-500 transition-all shadow-sm flex items-start space-x-3">
+                    <div class="bg-stone-700 text-white text-xs font-bold rounded-lg px-2.5 py-1 mt-0.5">06</div>
+                    <div class="space-y-1">
+                        <span class="inline-block bg-stone-100 text-stone-700 text-[10px] font-bold px-2 py-0.5 rounded">第二波 (情緒共鳴)</span>
+                        <h4 class="font-bold text-stone-800 text-base">「隆乳多年後，為什麼越來越多人選擇取出假體？」</h4>
+                        <p class="text-xs text-stone-500">受眾：長期持有假體者 ｜ 帶出服務：假體取出後的胸型重塑</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: RISK CONTROL -->
+        <section class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 sm:p-8">
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-800">五、 風控與溝通避坑指南</h2>
+                    <p class="text-xs text-amber-700 font-medium">Risk Control & Communication Boundaries</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm">
+                    <div class="text-red-600 font-bold text-sm mb-1">
+                        <i class="fa-solid fa-ban mr-1"></i> 避免包裝成「純假體取出」
+                    </div>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        會吸引大量完全無補脂需求、僅需拆除的客群，浪費診所諮詢資源與廣告預算。
+                    </p>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm">
+                    <div class="text-red-600 font-bold text-sm mb-1">
+                        <i class="fa-solid fa-ban mr-1"></i> 避免塑造為「併發症萬靈丹」
+                    </div>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        破裂、感染、極度嚴重莢膜攣縮需優先進行醫療處理，無法直接以補脂解決，需強調「先評估、後客製」。
+                    </p>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm">
+                    <div class="text-red-600 font-bold text-sm mb-1">
+                        <i class="fa-solid fa-ban mr-1"></i> 避免只賣自然、忽略尺寸胸型
+                    </div>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        消費者最在意的仍是「能補回多少、會不會鬆弛、要分幾次做」。內容必須正面回答期待值管理。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-16 border-t border-stone-200 py-6 text-center text-xs text-stone-400">
+        邱正宏美學診所 Strategic Marketing Proposal Showcase © 2026
+    </footer>
 
 </body>
 </html>
